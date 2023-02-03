@@ -10,8 +10,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class Headphones {
-    private String name;
+    private String brand;
+    private String model;
     private double price;
-    private double overallRating;
-    private double bassRating;
+    private double rating;
 }
