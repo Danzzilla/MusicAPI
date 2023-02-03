@@ -1,4 +1,4 @@
-package com.example.musicproject.models;
+package edu.greenriver.sdev.musicproject.models;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
