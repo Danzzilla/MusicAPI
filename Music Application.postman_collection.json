@@ -1,0 +1,505 @@
+{
+	"info": {
+		"_postman_id": "421a9d24-9baf-4746-895d-f915264e8f0d",
+		"name": "Music Application",
+		"description": "**Author**: Daniel Svirida\n\n**Class**: SDEV 372\n\n**Quarter**: Winter 2023\n\nEndpoints:\n\n- /music - accesses music records\n- /headphones - accesses heaphone records",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25651604"
+	},
+	"item": [
+		{
+			"name": "Music",
+			"item": [
+				{
+					"name": "All Music Objects",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/music",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"music"
+							]
+						},
+						"description": "Retrieves all the music records\n\nResponses:\n\n- 200 (OK) - records displayed"
+					},
+					"response": []
+				},
+				{
+					"name": "By Song Name (successful)",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/music/Reckless Love",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"music",
+								"Reckless Love"
+							]
+						},
+						"description": "Retrieves a Song that matches names in the path variable\n\nResponses:\n\n- 200 (OK) - Song found and returned\n- 404 (Not Found) - Song not found"
+					},
+					"response": []
+				},
+				{
+					"name": "By Song Name (not found)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/music/By Your Side",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"music",
+								"By Your Side"
+							]
+						},
+						"description": "Retrieves a Song that matches names in the path variable\n\nResponses:\n\n- 200 (OK) - Song found and returned\n- 404 (Not Found) - Song not found"
+					},
+					"response": []
+				},
+				{
+					"name": "Add New Song (successful)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Gratitude\",\r\n    \"songWriter\": \"I AM THEY\",\r\n    \"length\": 4.12,\r\n    \"year\": 2022\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/music",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"music"
+							]
+						},
+						"description": "Adds a song to the records by posting a music object\n\nResponses:\n\n- 201 (Created) - Song created and added to the records\n- 400 (Bad Request) - Invalid Request to add (missing song name)"
+					},
+					"response": []
+				},
+				{
+					"name": "Add New Song (bad request)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"\",\r\n    \"songWriter\": \"I AM THEY\",\r\n    \"length\": 4.12,\r\n    \"year\": 2022\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/music",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"music"
+							]
+						},
+						"description": "Adds a song to the records by posting a music object\n\nResponses:\n\n- 201 (Created) - Song created and added to the records\n- 400 (Bad Request) - Invalid Request to add (missing song name)"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Song (successful)",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Gratitude\",\r\n    \"songWriter\": \"I AM THEY\",\r\n    \"length\": 4.12,\r\n    \"year\": 2077\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/music",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"music"
+							]
+						},
+						"description": "Updates a song in the records by PUT-ing a music object\n\nResponses:\n\n- 200 (OK) - Song updated successfully\n- 404 (Not Found) - Song does not exist in records, cannot update"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Song (not found)",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"3\",\r\n    \"songWriter\": \"I AM THEY\",\r\n    \"length\": 4.12,\r\n    \"year\": 2077\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/music",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"music"
+							]
+						},
+						"description": "Updates a song in the records by PUT-ing a music object\n\nResponses:\n\n- 200 (OK) - Song updated successfully\n- 404 (Not Found) - Song does not exist in records, cannot update"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Song (successful)",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/music/Riptide",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"music",
+								"Riptide"
+							]
+						},
+						"description": "Deletes a song in the records that matches the name in the path variable\n\nResponses:\n\n- 200 (OK) - Song successfully deleted and no longer in records\n- 404 (Not Found) - Song does not exist in records, cannot delete"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Song (not found)",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/music/Dead Man",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"music",
+								"Dead Man"
+							]
+						},
+						"description": "Deletes a song in the records that matches the name in the path variable\n\nResponses:\n\n- 200 (OK) - Song successfully deleted and no longer in records\n- 404 (Not Found) - Song does not exist in records, cannot delete"
+					},
+					"response": []
+				}
+			],
+			"description": "Music Records"
+		},
+		{
+			"name": "Headphones",
+			"item": [
+				{
+					"name": "All Headphones Objects",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/headphones",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"headphones"
+							]
+						},
+						"description": "Retrieves all the headphone records\n\nResponses:\n\n- 200 (OK) - records displayed"
+					},
+					"response": []
+				},
+				{
+					"name": "HP by Model (successful)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/headphones/Quietcomfort 35",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"headphones",
+								"Quietcomfort 35"
+							]
+						},
+						"description": "Retrieves a Headphone that matches model in the path variable\n\nResponses:\n\n- 200 (OK) - Headphones found and returned\n- 404 (Not Found) - Headphones not found"
+					},
+					"response": []
+				},
+				{
+					"name": "HP by Model (not found)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/headphones/Hesh",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"headphones",
+								"Hesh"
+							]
+						},
+						"description": "Retrieves a Headphone that matches model in the path variable\n\nResponses:\n\n- 200 (OK) - Headphones found and returned\n- 404 (Not Found) - Headphones not found"
+					},
+					"response": []
+				},
+				{
+					"name": "Add New HP (successful)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"brand\": \"Beats\",\r\n    \"model\": \"Solo 3\",\r\n    \"price\": 135.0,\r\n    \"rating\": 4.5\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/headphones",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"headphones"
+							]
+						},
+						"description": "Adds headphones to the records by posting a headphone object\n\nResponses:\n\n- 201 (Created) - Headphones created and added to the records\n- 400 (Bad Request) - Invalid Request to add (missing headphones model)"
+					},
+					"response": []
+				},
+				{
+					"name": "Add New HP (bad request)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"brand\": \"Bose\",\r\n    \"model\": \"\",\r\n    \"price\": 235.0,\r\n    \"rating\": 4.8\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/headphones",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"headphones"
+							]
+						},
+						"description": "Adds headphones to the records by posting a headphone object\n\nResponses:\n\n- 201 (Created) - Headphones created and added to the records\n- 400 (Bad Request) - Invalid Request to add (missing headphones model)"
+					},
+					"response": []
+				},
+				{
+					"name": "Update HP (successful)",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"brand\": \"Bose\",\r\n    \"model\": \"Quietcomfort 35\",\r\n    \"price\": 700,\r\n    \"rating\": 5\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/headphones",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"headphones"
+							]
+						},
+						"description": "Updates a headphone in the records by PUT-ing a headphone object\n\nResponses:\n\n- 200 (OK) - Heaphones updated successfully\n- 404 (Not Found) - Headphones do not exist in records, cannot update"
+					},
+					"response": []
+				},
+				{
+					"name": "Update HP (not found)",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"brand\": \"Bose\",\r\n    \"model\": \"\",\r\n    \"price\": 235.0,\r\n    \"rating\": 4.8\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/headphones",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"headphones"
+							]
+						},
+						"description": "Updates a headphone in the records by PUT-ing a headphone object\n\nResponses:\n\n- 200 (OK) - Heaphones updated successfully\n- 404 (Not Found) - Headphones do not exist in records, cannot update"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete HP (successful)",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/headphones/Crusher",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"headphones",
+								"Crusher"
+							]
+						},
+						"description": "Deletes a headphone in the records that matches the model in the path variable\n\nResponses:\n\n- 200 (OK) - Headphones successfully deleted and no longer in records\n- 404 (Not Found) - Headphones do not exist in records, cannot delete"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete HP (not found)",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/headphones/Hesh",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"headphones",
+								"Hesh"
+							]
+						},
+						"description": "Deletes a headphone in the records that matches the model in the path variable\n\nResponses:\n\n- 200 (OK) - Headphones successfully deleted and no longer in records\n- 404 (Not Found) - Headphones do not exist in records, cannot delete"
+					},
+					"response": []
+				}
+			],
+			"description": "Headphone Records"
+		}
+	]
+}
