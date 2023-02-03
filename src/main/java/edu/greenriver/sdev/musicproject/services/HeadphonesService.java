@@ -60,11 +60,14 @@ public class HeadphonesService {
 
     //DELETE requests (delete)
 
-    public void deleteHeadphones(String modelName){
+    public Headphones deleteHeadphones(String modelName){
         //filter out just the matching model name
         headphones = headphones.stream()
                 .filter(rec -> !rec.getModel().equalsIgnoreCase(modelName))
                 .toList();
+
+        Headphones found = findHeadphonesByModel(modelName);
+        return found;
     }
 
     public boolean areValidHeadphones(Headphones headphones) {

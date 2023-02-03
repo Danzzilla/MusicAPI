@@ -46,16 +46,17 @@ public class HeadphonesAPI {
         if(service.findHeadphonesByModel(updatedHeadphones.getModel()) == null){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        //invalid data
-        else if(!service.areValidHeadphones(updatedHeadphones)){
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
 
         return new ResponseEntity<>(service.updateHeadphones((updatedHeadphones)), HttpStatus.OK);
     }
 
     @DeleteMapping("{modelName}")
-    public void deleteHeadphones(@PathVariable String modelName){
-        service.deleteHeadphones(modelName);
+    public ResponseEntity<Headphones> deleteHeadphones(@PathVariable String modelName){
+        //not found
+        if(service.findHeadphonesByModel(modelName) == null){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity<>(service.deleteHeadphones(modelName), HttpStatus.OK);
     }
 }
