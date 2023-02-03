@@ -22,7 +22,7 @@ public class HeadphonesAPI {
         return new ResponseEntity<>(service.allHeadphones(), HttpStatus.OK);
     }
 
-    @GetMapping("{headphonesName}")
+    @GetMapping("{modelName}")
     public ResponseEntity<Headphones> headphonesByModel(@PathVariable String modelName){
         if(service.findHeadphonesByModel(modelName) == null){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
