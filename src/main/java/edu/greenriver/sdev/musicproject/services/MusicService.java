@@ -14,6 +14,12 @@ public class MusicService {
                     .songWriter("Vance Joy")
                     .length(3.24)
                     .year(2013)
+                    .build(),
+            Music.builder()
+                    .name("Reckless Love")
+                    .songWriter("Cory Asbury")
+                    .length(5.33)
+                    .year(2017)
                     .build()
     ));
 
@@ -54,11 +60,14 @@ public class MusicService {
 
     //DELETE requests (delete)
 
-    public void deleteMusic(String songName){
+    public Music deleteMusic(String songName){
         //filter out just the matching song name
         music = music.stream()
                 .filter(rec -> !rec.getName().equalsIgnoreCase(songName))
                 .toList();
+
+        Music found = findMusicByName(songName);
+        return found;
     }
 
     public boolean isValidMusic(Music music) {

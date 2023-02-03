@@ -46,16 +46,16 @@ public class MusicAPI {
         if(service.findMusicByName(updatedMusic.getName()) == null){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        //invalid data
-        else if(!service.isValidMusic(updatedMusic)){
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
 
-        return new ResponseEntity<>(service.updateMusic((updatedMusic)), HttpStatus.OK);
+        return new ResponseEntity<>(service.updateMusic(updatedMusic), HttpStatus.OK);
     }
 
     @DeleteMapping("{songName}")
-    public void deleteMusic(@PathVariable String songName){
-        service.deleteMusic(songName);
+    public ResponseEntity<Music> deleteMusic(@PathVariable String songName){
+        //not found
+        if(service.findMusicByName(songName) == null){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(service.deleteMusic(songName), HttpStatus.OK);
     }
 }
