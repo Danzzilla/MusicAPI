@@ -6,6 +6,12 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Music Service Class
+ *
+ * @author Daniel Svirida
+ * @version 1
+ */
 @Service
 public class MusicService {
     private List<Music> music = new ArrayList<>(List.of(
@@ -25,10 +31,19 @@ public class MusicService {
 
     //GET requests (read)
 
+    /**
+     * Gives all music records
+     * @return music records
+     */
     public List<Music> allMusic(){
         return music;
     }
 
+    /**
+     * Finds song by its name
+     * @param songName songs name
+     * @return music object
+     */
     public Music findMusicByName(String songName){
         return music.stream()
                 .filter(rec -> rec.getName().equalsIgnoreCase(songName))
@@ -38,6 +53,11 @@ public class MusicService {
 
     //POST requests (create)
 
+    /**
+     * Adds Music to the records
+     * @param newMusic music to be added to the records
+     * @return music added
+     */
     public Music addMusic(Music newMusic){
         music.add(newMusic);
         return newMusic;
@@ -45,6 +65,11 @@ public class MusicService {
 
     //PUT requests (update)
 
+    /**
+     * Updates song in the records
+     * @param updatedMusic song to be updated
+     * @return updated song
+     */
     public Music updateMusic(Music updatedMusic){
         Music found = findMusicByName(updatedMusic.getName());
 
@@ -60,6 +85,11 @@ public class MusicService {
 
     //DELETE requests (delete)
 
+    /**
+     * Deletes song from records
+     * @param songName songs name
+     * @return deleted song
+     */
     public Music deleteMusic(String songName){
         //filter out just the matching song name
         music = music.stream()
@@ -70,7 +100,19 @@ public class MusicService {
         return found;
     }
 
+    /**
+     * Checks if a song is valid
+     * @param music song to be checked
+     * @return true if valid <br> false if not valid
+     */
     public boolean isValidMusic(Music music) {
         return music.getName() != null && !music.getName().isEmpty();
+    }
+
+    @Override
+    public String toString() {
+        return "MusicService{" +
+                "music=" + music.toString() +
+                '}';
     }
 }

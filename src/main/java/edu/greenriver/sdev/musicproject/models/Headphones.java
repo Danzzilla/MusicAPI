@@ -5,6 +5,12 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Headphones Objects
+ *
+ * @author Daniel Svirida
+ * @version 1
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
