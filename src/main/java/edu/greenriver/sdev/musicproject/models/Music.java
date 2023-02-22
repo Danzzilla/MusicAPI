@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
  * Music Object
  *
  * @author Daniel Svirida
- * @version 1
+ * @version 1.1
  */
 @Data
 @AllArgsConstructor

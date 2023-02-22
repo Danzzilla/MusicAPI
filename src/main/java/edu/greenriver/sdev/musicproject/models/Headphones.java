@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
  * Headphones Objects
  *
  * @author Daniel Svirida
- * @version 1
+ * @version 1.1
  */
 @Entity
 @Data
