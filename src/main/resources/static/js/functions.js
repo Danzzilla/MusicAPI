@@ -103,7 +103,7 @@ function editMusicListener(button){
         year.innerHTML = "<input id='Year" + row + "' type='text' value='" + year.innerText + "'>";
         edit.innerHTML = "<button class='save" + row + " btn-success'>Save</button>";
 
-        document.querySelector(".save" + row).addEventListener("click", event => {
+        document.querySelector(".save" + row).addEventListener("click", () => {
             let jsobj = {};
 
             jsobj.id = row;
@@ -143,7 +143,7 @@ function editHPListener(button){
         rating.innerHTML = "<input id='Rating" + row + "' type='text' value='" + rating.innerText + "'>";
         edit.innerHTML = "<button class='save" + row + " btn-success'>Save</button>";
 
-        document.querySelector(".save" + row).addEventListener("click", event => {
+        document.querySelector(".save" + row).addEventListener("click", () => {
             let jsobj = {};
 
             jsobj.id = row;
@@ -174,11 +174,11 @@ function deleteMusicListener(button){
         remove.innerHTML = "<button class='confirm" + row + " btn-danger'>Confirm</button>" +
             "<button class='cancel" + row + " btn-success'>Cancel</button>";
 
-        document.querySelector(".confirm" + row).addEventListener("click", event => {
+        document.querySelector(".confirm" + row).addEventListener("click", () => {
             deleteRecord("music", row);
         })
 
-        document.querySelector(".cancel" + row).addEventListener("click", event => {
+        document.querySelector(".cancel" + row).addEventListener("click", () => {
             remove.innerHTML = "<button class='deleteMusic btn-danger' value='" + row + "'>Delete</button>";
         })
     })
@@ -192,11 +192,11 @@ function deleteHPListener(button){
         remove.innerHTML = "<button class='confirm" + row + " btn-danger'>Confirm</button>" +
             "<button class='cancel" + row + " btn-success'>Cancel</button>";
 
-        document.querySelector(".confirm" + row).addEventListener("click", event => {
+        document.querySelector(".confirm" + row).addEventListener("click", () => {
             deleteRecord("headphones", row);
         })
 
-        document.querySelector(".cancel" + row).addEventListener("click", event => {
+        document.querySelector(".cancel" + row).addEventListener("click", () => {
             remove.innerHTML = "<button class='deleteHeadphones btn-danger' value='" + row + "'>Delete</button>";
         })
     })

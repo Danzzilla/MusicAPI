@@ -14,20 +14,25 @@ import java.util.List;
  */
 @Service
 public class HeadphonesService {
+    public static final int ID_MULTIPLIER = 532;
+    public static final int PRICE1 = 235;
+    public static final double RATING1 = 4.8;
+    public static final int PRICE2 = 200;
+    public static final double RATING2 = 4.2;
     private List<Headphones> headphones = new ArrayList<>(List.of(
             Headphones.builder()
-                    .id((long)(Math.random() * 532))
+                    .id((long)(Math.random() * ID_MULTIPLIER))
                     .brand("Bose")
                     .model("Quietcomfort 35")
-                    .price(235)
-                    .rating(4.8)
+                    .price(PRICE1)
+                    .rating(RATING1)
                     .build(),
             Headphones.builder()
-                    .id((long)(Math.random() * 532))
+                    .id((long)(Math.random() * ID_MULTIPLIER))
                     .brand("Skullcandy")
                     .model("Crusher")
-                    .price(200)
-                    .rating(4.2)
+                    .price(PRICE2)
+                    .rating(RATING2)
                     .build()
     ));
 
@@ -96,11 +101,10 @@ public class HeadphonesService {
     public Headphones deleteHeadphones(long modelID){
         //filter out just the matching model name
         headphones = headphones.stream()
-                .filter(rec -> !(rec.getId() == modelID))
+                .filter(rec -> (rec.getId() != modelID))
                 .toList();
 
-        Headphones found = findHeadphonesByID(modelID);
-        return found;
+        return findHeadphonesByID(modelID);
     }
 
     /**

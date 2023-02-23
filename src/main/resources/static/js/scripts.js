@@ -17,7 +17,7 @@
 load("music");
 load("headphones");
 
-document.querySelector("#submit-music").addEventListener("click", event => {
+document.querySelector("#submit-music").addEventListener("click", () => {
     let jsobj = {};
 
     let name = document.querySelector("#name");
@@ -39,7 +39,7 @@ document.querySelector("#submit-music").addEventListener("click", event => {
     document.querySelector("#year").value = "";
 })
 
-document.querySelector("#submit-headphones").addEventListener("click", event => {
+document.querySelector("#submit-headphones").addEventListener("click", () => {
     let jsobj = {};
 
     let brand = document.querySelector("#brand");
@@ -61,7 +61,7 @@ document.querySelector("#submit-headphones").addEventListener("click", event => 
     document.querySelector("#rating").value = "";
 })
 
-document.querySelector("#add-music").addEventListener("click", event => {
+document.querySelector("#add-music").addEventListener("click", () => {
     let card = document.getElementById("music-card");
 
     if(card.classList.contains("d-none")){
@@ -71,7 +71,7 @@ document.querySelector("#add-music").addEventListener("click", event => {
     }
 })
 
-document.querySelector("#add-headphones").addEventListener("click", event => {
+document.querySelector("#add-headphones").addEventListener("click", () => {
     let card = document.getElementById("headphones-card");
 
     if(card.classList.contains("d-none")){

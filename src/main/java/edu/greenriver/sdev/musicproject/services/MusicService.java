@@ -14,20 +14,25 @@ import java.util.List;
  */
 @Service
 public class MusicService {
+    public static final int ID_MULTIPLIER = 532;
+    public static final double LENGTH1 = 3.24;
+    public static final int YEAR1 = 2013;
+    public static final double LENGTH2 = 5.33;
+    public static final int YEAR2 = 2017;
     private List<Music> music = new ArrayList<>(List.of(
             Music.builder()
-                    .id((long)(Math.random() * 532))
+                    .id((long)(Math.random() * ID_MULTIPLIER))
                     .name("Riptide")
                     .songWriter("Vance Joy")
-                    .length(3.24)
-                    .year(2013)
+                    .length(LENGTH1)
+                    .year(YEAR1)
                     .build(),
             Music.builder()
-                    .id((long)(Math.random() * 532))
+                    .id((long)(Math.random() * ID_MULTIPLIER))
                     .name("Reckless Love")
                     .songWriter("Cory Asbury")
-                    .length(5.33)
-                    .year(2017)
+                    .length(LENGTH2)
+                    .year(YEAR2)
                     .build()
     ));
 
@@ -95,11 +100,10 @@ public class MusicService {
     public Music deleteMusic(long songID){
         //filter out just the matching song name
         music = music.stream()
-                .filter(rec -> !(rec.getId() == songID))
+                .filter(rec -> (rec.getId() != songID))
                 .toList();
 
-        Music found = findMusicByID(songID);
-        return found;
+        return findMusicByID(songID);
     }
 
     /**
