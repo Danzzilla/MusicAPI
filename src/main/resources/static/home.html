@@ -8,78 +8,102 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
-    <h1>Welcome</h1>
-    <img src="images/icon.png" alt="headphones">
+    <div id="heading">
+        <img src="images/icon.png" alt="headphones">
+        <h1>Welcome</h1>
+    </div>
 
-    <table id="music-records" class="table">
-        <thead>
-        <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Song Writer</th>
-            <th>Length</th>
-            <th>Year</th>
-            <th>Edit</th>
-            <th>Delete</th>
-        </tr>
-        </thead>
-        <tbody>
+    <div id="music-container">
+        <h3>Music</h3>
+        <table id="music-records" class="table">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Song Writer</th>
+                <th>Length</th>
+                <th>Year</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+            </thead>
+            <tbody>
 
-        </tbody>
-    </table>
-    <button id="add-music" class="btn-success">Add Music</button>
+            </tbody>
+        </table>
+        <button id="add-music" class="btn-success">Add Music</button>
+    </div>
 
     <div id="music-card" class="card d-none">
         <h4 class="card-header">Add Music</h4>
         <form  class="card-body">
-            <label for="name">Name: </label>
-            <input id="name" name="name" type="text">
+            <div>
+                <label for="name">Name: </label>
+                <input id="name" name="name" type="text">
+            </div>
 
-            <label for="writer">Song Writer: </label>
-            <input id="writer" name="writer" type="text">
+            <div>
+                <label for="writer">Song Writer: </label>
+                <input id="writer" name="writer" type="text">
+            </div>
 
-            <label for="length">Length: </label>
-            <input id="length" name="length" type="text">
+            <div>
+                <label for="length">Length: </label>
+                <input id="length" name="length" type="text">
+            </div>
 
-            <label for="year">Year: </label>
-            <input id="year" name="year" type="text">
+            <div>
+                <label for="year">Year: </label>
+                <input id="year" name="year" type="text">
+            </div>
         </form>
 
         <button id="submit-music" class="btn-primary">Submit</button>
     </div>
 
-    <table id="headphones-records" class="table">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Brand</th>
-                <th>Model</th>
-                <th>Price</th>
-                <th>Rating</th>
-                <th>Edit</th>
-                <th>Delete</th>
-            </tr>
-        </thead>
-        <tbody>
+    <div id="headphones-container">
+        <h3>Headphones</h3>
+        <table id="headphones-records" class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Brand</th>
+                    <th>Model</th>
+                    <th>Price</th>
+                    <th>Rating</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
 
-        </tbody>
-    </table>
-    <button id="add-headphones" class="btn-success">Add Headphones</button>
+            </tbody>
+        </table>
+        <button id="add-headphones" class="btn-success">Add Headphones</button>
+    </div>
 
     <div id="headphones-card" class="card d-none">
         <h4 class="card-header">Add Headphones</h4>
         <form  class="card-body">
-            <label for="brand">Brand: </label>
-            <input id="brand" name="brand" type="text">
+            <div>
+                <label for="brand">Brand: </label>
+                <input id="brand" name="brand" type="text">
+            </div>
 
-            <label for="model">Model: </label>
-            <input id="model" name="model" type="text">
+            <div>
+                <label for="model">Model: </label>
+                <input id="model" name="model" type="text">
+            </div>
 
-            <label for="price">Price: </label>
-            <input id="price" name="price" type="text">
+            <div>
+                <label for="price">Price: </label>
+                <input id="price" name="price" type="text">
+            </div>
 
-            <label for="rating">Rating: </label>
-            <input id="rating" name="rating" type="text">
+            <div>
+                <label for="rating">Rating: </label>
+                <input id="rating" name="rating" type="text">
+            </div>
         </form>
 
         <button id="submit-headphones" class="btn-primary">Submit</button>

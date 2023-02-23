@@ -1,3 +1,60 @@
 body{
+    display: grid;
+    grid-template-columns: 15% 22.5% 25% 22.5% 15%;
+    grid-template-rows: auto;
+    grid-template-areas:
+        ". . heading . ."
+        ". music music music ."
+        ". . music-card . ."
+        ". hp hp hp ."
+        ". . hp-card . .";
+    background-color: rgb(35, 31, 32) !important;
+}
+
+#heading{
+    grid-area: heading;
     text-align: center;
+    margin: 1rem;
+}
+
+h1, h3, h4, th, td, label{
+    color: #f6f7f9;
+}
+
+h3{
+    margin-left: 5rem;
+    margin-bottom: 1rem;
+}
+
+label, input{
+    text-align: center;
+    margin-left: 0;
+    padding-left: 0;
+    width: auto;
+}
+
+#music-container{
+    grid-area: music;
+    margin: 1rem;
+}
+
+#music-card{
+    grid-area: music-card;
+    text-align: center;
+    padding: 0;
+    margin: 1rem;
+    background-color: rgb(28, 25, 25);
+}
+
+#headphones-container{
+    grid-area: hp;
+    margin: 1rem;
+}
+
+#headphones-card{
+    grid-area: hp-card;
+    text-align: center;
+    padding: 0;
+    margin: 1rem;
+    background-color: rgb(28, 25, 25);
 }
