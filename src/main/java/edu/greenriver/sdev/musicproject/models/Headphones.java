@@ -15,15 +15,11 @@ import lombok.NoArgsConstructor;
  * @author Daniel Svirida
  * @version 1.1
  */
-@Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 public class Headphones {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
     private String brand;
     private String model;
     private double price;
