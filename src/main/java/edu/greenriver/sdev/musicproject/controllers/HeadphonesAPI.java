@@ -22,12 +22,12 @@ public class HeadphonesAPI {
         return new ResponseEntity<>(service.allHeadphones(), HttpStatus.OK);
     }
 
-    @GetMapping("{modelName}")
-    public ResponseEntity<Headphones> headphonesByModel(@PathVariable String modelName){
-        if(service.findHeadphonesByModel(modelName) == null){
+    @GetMapping("{modelID}")
+    public ResponseEntity<Headphones> headphonesByID(@PathVariable long modelID){
+        if(service.findHeadphonesByID(modelID) == null){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(service.findHeadphonesByModel(modelName), HttpStatus.OK);
+        return new ResponseEntity<>(service.findHeadphonesByID(modelID), HttpStatus.OK);
     }
 
     @PostMapping("")
@@ -43,20 +43,20 @@ public class HeadphonesAPI {
     @PutMapping("")
     public ResponseEntity<Headphones> updateHeadphones(@RequestBody Headphones updatedHeadphones){
         //not found
-        if(service.findHeadphonesByModel(updatedHeadphones.getModel()) == null){
+        if(service.findHeadphonesByID(updatedHeadphones.getId()) == null){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
         return new ResponseEntity<>(service.updateHeadphones((updatedHeadphones)), HttpStatus.OK);
     }
 
-    @DeleteMapping("{modelName}")
-    public ResponseEntity<Headphones> deleteHeadphones(@PathVariable String modelName){
+    @DeleteMapping("{modelID}")
+    public ResponseEntity<Headphones> deleteHeadphones(@PathVariable long modelID){
         //not found
-        if(service.findHeadphonesByModel(modelName) == null){
+        if(service.findHeadphonesByID(modelID) == null){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
-        return new ResponseEntity<>(service.deleteHeadphones(modelName), HttpStatus.OK);
+        return new ResponseEntity<>(service.deleteHeadphones(modelID), HttpStatus.OK);
     }
 }

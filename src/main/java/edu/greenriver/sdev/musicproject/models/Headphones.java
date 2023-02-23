@@ -13,13 +13,14 @@ import lombok.NoArgsConstructor;
  * Headphones Objects
  *
  * @author Daniel Svirida
- * @version 1.1
+ * @version 1.2
  */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 public class Headphones {
+    private long id;
     private String brand;
     private String model;
     private double price;

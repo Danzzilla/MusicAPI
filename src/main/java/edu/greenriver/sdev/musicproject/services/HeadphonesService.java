@@ -10,18 +10,20 @@ import java.util.List;
  * Headphones Service Class
  *
  * @author Daniel Svirida
- * @version 1
+ * @version 1.2
  */
 @Service
 public class HeadphonesService {
     private List<Headphones> headphones = new ArrayList<>(List.of(
             Headphones.builder()
+                    .id((long)(Math.random() * 532))
                     .brand("Bose")
                     .model("Quietcomfort 35")
                     .price(235)
                     .rating(4.8)
                     .build(),
             Headphones.builder()
+                    .id((long)(Math.random() * 532))
                     .brand("Skullcandy")
                     .model("Crusher")
                     .price(200)
@@ -42,12 +44,12 @@ public class HeadphonesService {
 
     /**
      * Finds specific headphone by model
-     * @param modelName headphone model name
+     * @param modelID headphone model name
      * @return headphone object
      */
-    public Headphones findHeadphonesByModel(String modelName){
+    public Headphones findHeadphonesByID(long modelID){
         return headphones.stream()
-                .filter(rec -> rec.getModel().equalsIgnoreCase(modelName))
+                .filter(rec -> (rec.getId() == modelID))
                 .findFirst()
                 .orElse(null);
     }
@@ -72,7 +74,7 @@ public class HeadphonesService {
      * @return updated headphones
      */
     public Headphones updateHeadphones(Headphones updatedHeadphones){
-        Headphones found = findHeadphonesByModel(updatedHeadphones.getModel());
+        Headphones found = findHeadphonesByID(updatedHeadphones.getId());
 
         if(found != null){
             found.setBrand(updatedHeadphones.getBrand());
@@ -88,16 +90,16 @@ public class HeadphonesService {
 
     /**
      * Deletes headphones
-     * @param modelName headphone model to be deleted
+     * @param modelID headphone model to be deleted
      * @return deleted headphones
      */
-    public Headphones deleteHeadphones(String modelName){
+    public Headphones deleteHeadphones(long modelID){
         //filter out just the matching model name
         headphones = headphones.stream()
-                .filter(rec -> !rec.getModel().equalsIgnoreCase(modelName))
+                .filter(rec -> !(rec.getId() == modelID))
                 .toList();
 
-        Headphones found = findHeadphonesByModel(modelName);
+        Headphones found = findHeadphonesByID(modelID);
         return found;
     }
 

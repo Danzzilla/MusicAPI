@@ -22,12 +22,12 @@ public class MusicAPI {
         return new ResponseEntity<>(service.allMusic(), HttpStatus.OK);
     }
 
-    @GetMapping("{songName}")
-    public ResponseEntity<Music> musicByName(@PathVariable String songName){
-        if(service.findMusicByName(songName) == null){
+    @GetMapping("{songID}")
+    public ResponseEntity<Music> musicByID(@PathVariable long songID){
+        if(service.findMusicByID(songID) == null){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(service.findMusicByName(songName), HttpStatus.OK);
+        return new ResponseEntity<>(service.findMusicByID(songID), HttpStatus.OK);
     }
 
     @PostMapping("")
@@ -43,19 +43,19 @@ public class MusicAPI {
     @PutMapping("")
     public ResponseEntity<Music> updateMusic(@RequestBody Music updatedMusic){
         //not found
-        if(service.findMusicByName(updatedMusic.getName()) == null){
+        if(service.findMusicByID(updatedMusic.getId()) == null){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
         return new ResponseEntity<>(service.updateMusic(updatedMusic), HttpStatus.OK);
     }
 
-    @DeleteMapping("{songName}")
-    public ResponseEntity<Music> deleteMusic(@PathVariable String songName){
+    @DeleteMapping("{songID}")
+    public ResponseEntity<Music> deleteMusic(@PathVariable long songID){
         //not found
-        if(service.findMusicByName(songName) == null){
+        if(service.findMusicByID(songID) == null){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(service.deleteMusic(songName), HttpStatus.OK);
+        return new ResponseEntity<>(service.deleteMusic(songID), HttpStatus.OK);
     }
 }

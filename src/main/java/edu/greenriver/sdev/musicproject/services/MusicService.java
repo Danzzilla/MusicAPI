@@ -10,18 +10,20 @@ import java.util.List;
  * Music Service Class
  *
  * @author Daniel Svirida
- * @version 1
+ * @version 1.2
  */
 @Service
 public class MusicService {
     private List<Music> music = new ArrayList<>(List.of(
             Music.builder()
+                    .id((long)(Math.random() * 532))
                     .name("Riptide")
                     .songWriter("Vance Joy")
                     .length(3.24)
                     .year(2013)
                     .build(),
             Music.builder()
+                    .id((long)(Math.random() * 532))
                     .name("Reckless Love")
                     .songWriter("Cory Asbury")
                     .length(5.33)
@@ -41,12 +43,12 @@ public class MusicService {
 
     /**
      * Finds song by its name
-     * @param songName songs name
+     * @param songID songs name
      * @return music object
      */
-    public Music findMusicByName(String songName){
+    public Music findMusicByID(long songID){
         return music.stream()
-                .filter(rec -> rec.getName().equalsIgnoreCase(songName))
+                .filter(rec -> (rec.getId() == songID))
                 .findFirst()
                 .orElse(null);
     }
@@ -71,7 +73,7 @@ public class MusicService {
      * @return updated song
      */
     public Music updateMusic(Music updatedMusic){
-        Music found = findMusicByName(updatedMusic.getName());
+        Music found = findMusicByID(updatedMusic.getId());
 
         if(found != null){
             found.setName(updatedMusic.getName());
@@ -87,16 +89,16 @@ public class MusicService {
 
     /**
      * Deletes song from records
-     * @param songName songs name
+     * @param songID songs name
      * @return deleted song
      */
-    public Music deleteMusic(String songName){
+    public Music deleteMusic(long songID){
         //filter out just the matching song name
         music = music.stream()
-                .filter(rec -> !rec.getName().equalsIgnoreCase(songName))
+                .filter(rec -> !(rec.getId() == songID))
                 .toList();
 
-        Music found = findMusicByName(songName);
+        Music found = findMusicByID(songID);
         return found;
     }
 
