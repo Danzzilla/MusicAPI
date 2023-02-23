@@ -1,41 +1,129 @@
 //Initiators
 
-window.onload = function(){
-    load("music");
-    load("headphones");
-}
+load("music");
+load("headphones");
 
 document.querySelector("#submit-music").addEventListener("click", event => {
     let jsobj = {};
 
-    let name = document.querySelector("#name").value;
-    let writer = document.querySelector("#writer").value;
-    let length = document.querySelector("#length").value;
-    let year = document.querySelector("#year").value;
+    let name = document.querySelector("#name");
+    let writer = document.querySelector("#writer");
+    let length = document.querySelector("#length");
+    let year = document.querySelector("#year");
 
-    jsobj.name = name;
-    jsobj.songWriter = writer;
-    jsobj.length = length;
-    jsobj.year = year;
+    jsobj.name = name.value;
+    jsobj.songWriter = writer.value;
+    jsobj.length = length.value;
+    jsobj.year = year.value;
+    jsobj.id = Math.floor(Math.random() * Date.now());
 
     add("music", jsobj);
+
+    document.querySelector("#name").value = "";
+    document.querySelector("#writer").value = "";
+    document.querySelector("#length").value = "";
+    document.querySelector("#year").value = "";
 })
 
 document.querySelector("#submit-headphones").addEventListener("click", event => {
     let jsobj = {};
 
-    let brand = document.querySelector("#brand").value;
-    let model = document.querySelector("#model").value;
-    let price = document.querySelector("#price").value;
-    let rating = document.querySelector("#rating").value;
+    let brand = document.querySelector("#brand");
+    let model = document.querySelector("#model");
+    let price = document.querySelector("#price");
+    let rating = document.querySelector("#rating");
 
-    jsobj.brand = brand;
-    jsobj.model = model;
-    jsobj.price = price;
-    jsobj.rating = rating;
+    jsobj.brand = brand.value;
+    jsobj.model = model.value;
+    jsobj.price = price.value;
+    jsobj.rating = rating.value;
+    jsobj.id = Math.floor(Math.random() * Date.now());
 
     add("headphones", jsobj);
+
+    document.querySelector("#brand").value = "";
+    document.querySelector("#model").value = "";
+    document.querySelector("#price").value = "";
+    document.querySelector("#rating").value = "";
 })
+
+function editMusicListener(button){
+    button.addEventListener("click", event => {
+        let row = event.target.value;
+        console.log("click" + row);
+
+        let name = document.getElementById("NameTD" + row);
+        let writer = document.getElementById("WriterTD" + row);
+        let length = document.getElementById("LengthTD" + row);
+        let year = document.getElementById("YearTD" + row);
+        let edit = document.getElementById("EditTD" + row);
+
+        name.innerHTML = "<input id='Name" + row + "' type='text' value='" + name.innerText + "'>";
+        writer.innerHTML = "<input id='Writer" + row + "' type='text' value='" + writer.innerText + "'>";
+        length.innerHTML = "<input id='Length" + row + "' type='text' value='" + length.innerText + "'>";
+        year.innerHTML = "<input id='Year" + row + "' type='text' value='" + year.innerText + "'>";
+        edit.innerHTML = "<button class='save" + row + " btn-success'>Save</button>";
+
+        document.querySelector(".save" + row).addEventListener("click", event => {
+            let jsobj = {};
+
+            jsobj.id = row;
+            jsobj.name = document.getElementById("Name" + row).value;
+            jsobj.songWriter = document.getElementById("Writer" + row).value;
+            jsobj.length = document.getElementById("Length" + row).value;
+            jsobj.year = document.getElementById("Year" + row).value;
+
+            save("music", jsobj);
+
+            name.innerHTML = jsobj.name;
+            writer.innerHTML = jsobj.songWriter;
+            length.innerHTML = jsobj.length;
+            year.innerHTML = jsobj.year;
+            edit.innerHTML = "<button class='editMusic btn-warning' value='" + row + "'>Edit</button>"
+
+            editMusicListener(document.querySelector("#EditTD" + row + " .editMusic"));
+        })
+    })
+}
+
+function editHPListener(button){
+    button.addEventListener("click", event => {
+        let row = event.target.value;
+
+        console.log("click" + row);
+        let brand = document.getElementById("BrandTD" + row);
+        let model = document.getElementById("ModelTD" + row);
+        let price = document.getElementById("PriceTD" + row);
+        let rating = document.getElementById("RatingTD" + row);
+        let edit = document.getElementById("EditTD" + row);
+
+        brand.innerHTML = "<input id='Brand" + row + "' type='text' value='" + brand.innerText + "'>";
+        model.innerHTML = "<input id='Model" + row + "' type='text' value='" + model.innerText + "'>";
+        price.innerHTML = "<input id='Price" + row + "' type='text' value='" + price.innerText + "'>";
+        rating.innerHTML = "<input id='Rating" + row + "' type='text' value='" + rating.innerText + "'>";
+        edit.innerHTML = "<button class='save" + row + " btn-success'>Save</button>";
+
+        document.querySelector(".save" + row).addEventListener("click", event => {
+            let jsobj = {};
+
+            jsobj.id = row;
+            jsobj.brand = document.getElementById("Brand" + row).value;
+            jsobj.model = document.getElementById("Model" + row).value;
+            jsobj.price = document.getElementById("Price" + row).value;
+            jsobj.rating = document.getElementById("Rating" + row).value;
+
+            save("headphones", jsobj);
+
+            brand.innerHTML = jsobj.brand;
+            model.innerHTML = jsobj.model;
+            price.innerHTML = jsobj.price;
+            rating.innerHTML = jsobj.rating;
+            edit.innerHTML = "<button class='editHeadphones btn-warning' value='" + row + "'>Edit</button>"
+
+            editHPListener(document.querySelector("#EditTD" + row + " .editHeadphones"));
+        })
+    })
+}
 
 //Requests
 
@@ -53,15 +141,15 @@ function load(type){
         .then(function(json){
             console.log(json);
             if(type === "music"){
-                displayMusic(json);
-            }else if(type === "headphones"){
-                displayHeadphones(json);
+                json.forEach(song => displayMusic(song));
+            }else{
+                json.forEach(hp => displayHeadphones(hp));
             }
         });
 }
 
-function loadSingle(name, type){
-    let uri = "http://localhost:8080/" + type + "/" + name;
+function loadSingle(id, type){
+    let uri = "http://localhost:8080/" + type + "/" + id;
     let params = {
         method: "get"
     };
@@ -75,7 +163,7 @@ function loadSingle(name, type){
             console.log(json);
             if(type === "music"){
                 displayMusic(json);
-            }else if(type === "headphones"){
+            }else{
                 displayHeadphones(json);
             }
         });
@@ -94,81 +182,102 @@ function add(type, jsobj){
     fetch(uri, params)
         .then(function(response){
             console.log(response);
-            let name = jsobj.model;
-            if(type === "music"){
-                name = jsobj.name;
-            }
-            loadSingle(name, type);
+            let id = jsobj.id;
+            loadSingle(id, type);
+        })
+}
+
+function save(type, jsobj){
+    let uri = "http://localhost:8080/" + type;
+    let params = {
+        method: "put",
+        body: JSON.stringify(jsobj),
+        headers: {
+            "Content-Type": "application/json"
+        }
+    };
+
+    fetch(uri, params)
+        .then(function(response){
+            console.log(response);
         })
 }
 
 //Functions
 
-function displayMusic(music){
+function displayMusic(song){
     let table = document.querySelector("#music-records tbody");
 
-    //loop over records
-    for(let i = 0; i < music.length; i++){
-        let song = music;
-        if(Array.isArray(music)){
-            song = music[i];
-        }
+    let row = document.createElement("tr");
+    row.setAttribute("id", song.id);
 
-        let row = document.createElement("tr");
+    let id = document.createElement("td");
+    id.setAttribute("id","IdTD" + song.id);
+    let name = document.createElement("td");
+    name.setAttribute("id","NameTD" + song.id);
+    let writer = document.createElement("td");
+    writer.setAttribute("id","WriterTD" + song.id);
+    let length = document.createElement("td");
+    length.setAttribute("id","LengthTD" + song.id);
+    let year = document.createElement("td");
+    year.setAttribute("id","YearTD" + song.id);
+    let edit = document.createElement("td");
+    edit.setAttribute("id","EditTD" + song.id);
 
-        let name = document.createElement("td");
-        let writer = document.createElement("td");
-        let length = document.createElement("td");
-        let year = document.createElement("td");
+    id.innerHTML = song.id;
+    name.innerHTML = song.name;
+    writer.innerHTML = song.songWriter;
+    length.innerHTML = song.length;
+    year.innerHTML = song.year;
+    edit.innerHTML = "<button class='editMusic btn-warning' value='" + song.id + "'>Edit</button>"
 
-        name.innerHTML = song.name;
-        writer.innerHTML = song.songWriter;
-        length.innerHTML = song.length;
-        year.innerHTML = song.year;
+    row.appendChild(id);
+    row.appendChild(name);
+    row.appendChild(writer);
+    row.appendChild(length);
+    row.appendChild(year);
+    row.appendChild(edit);
 
-        row.appendChild(name);
-        row.appendChild(writer);
-        row.appendChild(length);
-        row.appendChild(year);
+    table.appendChild(row);
 
-        table.appendChild(row);
-        if(!Array.isArray(music)){
-            return;
-        }
-    }
+    editMusicListener(document.querySelector("#EditTD" + song.id + " .editMusic"));
 }
 
-function displayHeadphones(hps){
+
+function displayHeadphones(hp){
     let table = document.querySelector("#headphones-records tbody");
 
-    //loop over records
-    for(let i = 0; i < hps.length; i++){
-        let hp = hps;
-        if(Array.isArray(hps)){
-            hp = hps[i];
-        }
+    let row = document.createElement("tr");
+    row.setAttribute("id", hp.id);
 
-        let row = document.createElement("tr");
+    let id = document.createElement("td");
+    id.setAttribute("id","IdTD" + hp.id);
+    let brand = document.createElement("td");
+    brand.setAttribute("id","BrandTD" + hp.id);
+    let model = document.createElement("td");
+    model.setAttribute("id","ModelTD" + hp.id);
+    let price = document.createElement("td");
+    price.setAttribute("id","PriceTD" + hp.id);
+    let rating = document.createElement("td");
+    rating.setAttribute("id","RatingTD" + hp.id);
+    let edit = document.createElement("td");
+    edit.setAttribute("id","EditTD" + hp.id);
 
-        let brand = document.createElement("td");
-        let model = document.createElement("td");
-        let price = document.createElement("td");
-        let rating = document.createElement("td");
+    id.innerHTML = hp.id;
+    brand.innerHTML = hp.brand;
+    model.innerHTML = hp.model;
+    price.innerHTML = hp.price;
+    rating.innerHTML = hp.rating;
+    edit.innerHTML = "<button class='editHeadphones btn-warning' value='" + hp.id + "'>Edit</button>"
 
-        brand.innerHTML = hp.brand;
-        model.innerHTML = hp.model;
-        price.innerHTML = hp.price;
-        rating.innerHTML = hp.rating;
+    row.appendChild(id);
+    row.appendChild(brand);
+    row.appendChild(model);
+    row.appendChild(price);
+    row.appendChild(rating);
+    row.appendChild(edit);
 
-        row.appendChild(brand);
-        row.appendChild(model);
-        row.appendChild(price);
-        row.appendChild(rating);
+    table.appendChild(row);
 
-        table.appendChild(row);
-
-        if(!Array.isArray(hps)){
-            return;
-        }
-    }
+    editHPListener(document.querySelector("#EditTD" + hp.id + " .editHeadphones"));
 }
