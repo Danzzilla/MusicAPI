@@ -82,6 +82,7 @@ function editMusicListener(button){
             edit.innerHTML = "<button class='editMusic btn-warning' value='" + row + "'>Edit</button>"
 
             editMusicListener(document.querySelector("#EditTD" + row + " .editMusic"));
+            deleteMusicListener(document.querySelector("#DeleteTD" + row + " .deleteMusic"));
         })
     })
 }
@@ -121,6 +122,43 @@ function editHPListener(button){
             edit.innerHTML = "<button class='editHeadphones btn-warning' value='" + row + "'>Edit</button>"
 
             editHPListener(document.querySelector("#EditTD" + row + " .editHeadphones"));
+            deleteMusicListener(document.querySelector("#DeleteTD" + row + " .deleteHeadphones"));
+        })
+    })
+}
+
+function deleteMusicListener(button){
+    button.addEventListener("click", event => {
+        let row = event.target.value;
+
+        let remove = document.getElementById("DeleteTD" + row);
+        remove.innerHTML = "<button class='confirm" + row + " btn-danger'>Confirm</button>" +
+            "<button class='cancel" + row + " btn-success'>Cancel</button>";
+
+        document.querySelector(".confirm" + row).addEventListener("click", event => {
+            deleteRecord("music", row);
+        })
+
+        document.querySelector(".cancel" + row).addEventListener("click", event => {
+            remove.innerHTML = "<button class='deleteMusic btn-danger' value='" + row + "'>Delete</button>";
+        })
+    })
+}
+
+function deleteHPListener(button){
+    button.addEventListener("click", event => {
+        let row = event.target.value;
+
+        let remove = document.getElementById("DeleteTD" + row);
+        remove.innerHTML = "<button class='confirm" + row + " btn-danger'>Confirm</button>" +
+            "<button class='cancel" + row + " btn-success'>Cancel</button>";
+
+        document.querySelector(".confirm" + row).addEventListener("click", event => {
+            deleteRecord("headphones", row);
+        })
+
+        document.querySelector(".cancel" + row).addEventListener("click", event => {
+            remove.innerHTML = "<button class='deleteHeadphones btn-danger' value='" + row + "'>Delete</button>";
         })
     })
 }
@@ -203,6 +241,18 @@ function save(type, jsobj){
         })
 }
 
+function deleteRecord(type, id){
+    let uri = "http://localhost:8080/" + type + "/" + id;
+    let params = {
+        method: "delete"
+    };
+
+    fetch(uri, params)
+        .then(function(){
+            document.getElementById(id).remove();
+        });
+}
+
 //Functions
 
 function displayMusic(song){
@@ -223,6 +273,8 @@ function displayMusic(song){
     year.setAttribute("id","YearTD" + song.id);
     let edit = document.createElement("td");
     edit.setAttribute("id","EditTD" + song.id);
+    let remove = document.createElement("td");
+    remove.setAttribute("id","DeleteTD" + song.id);
 
     id.innerHTML = song.id;
     name.innerHTML = song.name;
@@ -230,6 +282,7 @@ function displayMusic(song){
     length.innerHTML = song.length;
     year.innerHTML = song.year;
     edit.innerHTML = "<button class='editMusic btn-warning' value='" + song.id + "'>Edit</button>"
+    remove.innerHTML = "<button class='deleteMusic btn-danger' value='" + song.id + "'>Delete</button>"
 
     row.appendChild(id);
     row.appendChild(name);
@@ -237,10 +290,12 @@ function displayMusic(song){
     row.appendChild(length);
     row.appendChild(year);
     row.appendChild(edit);
+    row.appendChild(remove);
 
     table.appendChild(row);
 
     editMusicListener(document.querySelector("#EditTD" + song.id + " .editMusic"));
+    deleteMusicListener(document.querySelector("#DeleteTD" + song.id + " .deleteMusic"));
 }
 
 
@@ -262,6 +317,8 @@ function displayHeadphones(hp){
     rating.setAttribute("id","RatingTD" + hp.id);
     let edit = document.createElement("td");
     edit.setAttribute("id","EditTD" + hp.id);
+    let remove = document.createElement("td");
+    remove.setAttribute("id","DeleteTD" + hp.id);
 
     id.innerHTML = hp.id;
     brand.innerHTML = hp.brand;
@@ -269,6 +326,7 @@ function displayHeadphones(hp){
     price.innerHTML = hp.price;
     rating.innerHTML = hp.rating;
     edit.innerHTML = "<button class='editHeadphones btn-warning' value='" + hp.id + "'>Edit</button>"
+    remove.innerHTML = "<button class='deleteHeadphones btn-danger' value='" + hp.id + "'>Delete</button>"
 
     row.appendChild(id);
     row.appendChild(brand);
@@ -276,8 +334,10 @@ function displayHeadphones(hp){
     row.appendChild(price);
     row.appendChild(rating);
     row.appendChild(edit);
+    row.appendChild(remove);
 
     table.appendChild(row);
 
     editHPListener(document.querySelector("#EditTD" + hp.id + " .editHeadphones"));
+    deleteHPListener(document.querySelector("#DeleteTD" + hp.id + " .deleteHeadphones"));
 }
