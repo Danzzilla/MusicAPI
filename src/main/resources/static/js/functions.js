@@ -1,6 +1,9 @@
 //Functions
 
 function displayMusic(song){
+    //fetch first so it gets it in time
+    //let worldRating = loadRating();
+
     let table = document.querySelector("#music-records tbody");
 
     let row = document.createElement("tr");
@@ -16,6 +19,10 @@ function displayMusic(song){
     length.setAttribute("id","LengthTD" + song.id);
     let year = document.createElement("td");
     year.setAttribute("id","YearTD" + song.id);
+    let rating = document.createElement("td");
+    rating.setAttribute("id", "RatingTD" + song.id);
+    let lyrics = document.createElement("td");
+    lyrics.setAttribute("id", "LyricsTD" + song.id);
     let edit = document.createElement("td");
     edit.setAttribute("id","EditTD" + song.id);
     let remove = document.createElement("td");
@@ -26,19 +33,24 @@ function displayMusic(song){
     writer.innerHTML = song.songWriter;
     length.innerHTML = song.length;
     year.innerHTML = song.year;
-    edit.innerHTML = "<button class='editMusic btn-warning' value='" + song.id + "'>Edit</button>"
-    remove.innerHTML = "<button class='deleteMusic btn-danger' value='" + song.id + "'>Delete</button>"
+    //rating.innerHTML = worldRating;
+    lyrics.innerHTML = "<button class='lyricsMusic btn-info' value='" + song.id + "'>Lyrics</button>";
+    edit.innerHTML = "<button class='editMusic btn-warning' value='" + song.id + "'>Edit</button>";
+    remove.innerHTML = "<button class='deleteMusic btn-danger' value='" + song.id + "'>Delete</button>";
 
     row.appendChild(id);
     row.appendChild(name);
     row.appendChild(writer);
     row.appendChild(length);
     row.appendChild(year);
+    row.appendChild(rating);
+    row.appendChild(lyrics);
     row.appendChild(edit);
     row.appendChild(remove);
 
     table.appendChild(row);
 
+    lyricsMusicListener(document.querySelector("#LyricsTD" + song.id + " .lyricsMusic"));
     editMusicListener(document.querySelector("#EditTD" + song.id + " .editMusic"));
     deleteMusicListener(document.querySelector("#DeleteTD" + song.id + " .deleteMusic"));
 }
@@ -86,6 +98,18 @@ function displayHeadphones(hp){
     deleteHPListener(document.querySelector("#DeleteTD" + hp.id + " .deleteHeadphones"));
 }
 
+function lyricsMusicListener(button){
+    button.addEventListener("click", event => {
+        let card = document.getElementById("lyric-card");
+
+        if(card.classList.contains("d-none")){
+            card.classList.remove("d-none");
+        }else{
+            card.classList.add("d-none");
+        }
+    })
+}
+
 function editMusicListener(button){
     button.addEventListener("click", event => {
         let row = event.target.value;
@@ -121,7 +145,6 @@ function editMusicListener(button){
             edit.innerHTML = "<button class='editMusic btn-warning' value='" + row + "'>Edit</button>"
 
             editMusicListener(document.querySelector("#EditTD" + row + " .editMusic"));
-            deleteMusicListener(document.querySelector("#DeleteTD" + row + " .deleteMusic"));
         })
     })
 }
@@ -180,6 +203,7 @@ function deleteMusicListener(button){
 
         document.querySelector(".cancel" + row).addEventListener("click", () => {
             remove.innerHTML = "<button class='deleteMusic btn-danger' value='" + row + "'>Delete</button>";
+            deleteMusicListener(document.querySelector("#DeleteTD" + row + " .deleteMusic"));
         })
     })
 }

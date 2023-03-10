@@ -80,3 +80,21 @@ document.querySelector("#add-headphones").addEventListener("click", () => {
         card.classList.add("d-none");
     }
 })
+
+document.querySelector("#close-lyrics").addEventListener("click", () => {
+    let card = document.getElementById("lyric-card");
+
+    card.classList.add("d-none");
+})
+
+document.querySelector("#close-music").addEventListener("click", () => {
+    let card = document.getElementById("music-card");
+
+    card.classList.add("d-none");
+})
+
+document.querySelector("#close-headphones").addEventListener("click", () => {
+    let card = document.getElementById("headphones-card");
+
+    card.classList.add("d-none");
+})

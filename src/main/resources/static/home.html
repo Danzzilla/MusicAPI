@@ -24,6 +24,8 @@
                 <th>Song Writer</th>
                 <th>Length</th>
                 <th>Year</th>
+                <th>Rating</th>
+                <th>Lyrics</th>
                 <th>Edit</th>
                 <th>Delete</th>
             </tr>
@@ -35,8 +37,22 @@
         <button id="add-music" class="btn-success">Add Music</button>
     </div>
 
+    <div id="lyric-card" class="card d-none">
+        <div class="card-header">
+            <button id="close-lyrics" class="btn-danger float-right">X</button>
+            <h4>Lyrics</h4>
+        </div>
+        <div id="lyric-body" class="card-body">
+
+        </div>
+    </div>
+
     <div id="music-card" class="card d-none">
-        <h4 class="card-header">Add Music</h4>
+        <div class="card-header">
+            <button id="close-music" class="btn-danger float-right">X</button>
+            <h4>Add Music</h4>
+        </div>
+
         <form  class="card-body">
             <div>
                 <label for="name">Name: </label>
@@ -84,7 +100,10 @@
     </div>
 
     <div id="headphones-card" class="card d-none">
-        <h4 class="card-header">Add Headphones</h4>
+        <div class="card-header">
+            <button id="close-headphones" class="btn-danger float-right">X</button>
+            <h4>Add Headphones</h4>
+        </div>
         <form  class="card-body">
             <div>
                 <label for="brand">Brand: </label>
