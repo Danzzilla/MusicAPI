@@ -18,7 +18,7 @@ body{
     margin: 1rem;
 }
 
-h1, h3, h4, th, td, label{
+h1, h3, h4, th, td, label, #lyric-body{
     color: #f6f7f9;
 }
 
