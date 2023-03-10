@@ -1,8 +1,7 @@
 //Functions
 
 function displayMusic(song){
-    //fetch first so it gets it in time
-    //let worldRating = loadRating();
+    loadRating(song);
 
     let table = document.querySelector("#music-records tbody");
 
@@ -33,7 +32,6 @@ function displayMusic(song){
     writer.innerHTML = song.songWriter;
     length.innerHTML = song.length;
     year.innerHTML = song.year;
-    //rating.innerHTML = worldRating;
     lyrics.innerHTML = "<button class='lyricsMusic btn-info' value='" + song.id + "'>Lyrics</button>";
     edit.innerHTML = "<button class='editMusic btn-warning' value='" + song.id + "'>Edit</button>";
     remove.innerHTML = "<button class='deleteMusic btn-danger' value='" + song.id + "'>Delete</button>";
@@ -100,10 +98,16 @@ function displayHeadphones(hp){
 
 function lyricsMusicListener(button){
     button.addEventListener("click", event => {
+        let id = event.target.value;
+
         let card = document.getElementById("lyric-card");
+        let lyricID = document.getElementById("lyric-id");
 
         if(card.classList.contains("d-none")){
+            loadLyrics(id);
             card.classList.remove("d-none");
+        }else if(lyricID.innerHTML !== "Lyrics (" + id + ")"){
+            loadLyrics(id);
         }else{
             card.classList.add("d-none");
         }
